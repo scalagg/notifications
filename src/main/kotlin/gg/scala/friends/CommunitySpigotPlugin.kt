@@ -8,6 +8,7 @@ import me.lucko.helper.Events
 import me.lucko.helper.plugin.ap.Plugin
 import me.lucko.helper.plugin.ap.PluginDependency
 import net.evilblock.cubed.util.CC
+import net.evilblock.cubed.util.bukkit.Constants
 import net.evilblock.cubed.util.bukkit.FancyMessage
 import net.md_5.bungee.api.chat.ClickEvent
 import org.bukkit.event.player.PlayerJoinEvent
@@ -35,7 +36,8 @@ class CommunitySpigotPlugin : ExtendedScalaPlugin()
         Events.subscribe(PlayerJoinEvent::class.java)
             .handler { event ->
                 val community = CommunityPlayerHandler
-                    .find(event.player)!!
+                    .find(event.player)
+                    ?: return@handler
 
                 NotificationService
                     .findUnreadNotifications(
@@ -48,12 +50,12 @@ class CommunitySpigotPlugin : ExtendedScalaPlugin()
                     .thenAccept {
                         val fancy = FancyMessage()
                             .withMessage(
-                                "${CC.D_GRAY}You have ${CC.BD_GRAY}${it.size}${CC.D_GRAY} unread notifications... "
+                                "${CC.B_PRI}Server ${CC.GRAY}${Constants.DOUBLE_ARROW_RIGHT} ${CC.SEC}You have ${CC.B_PRI}${it.size}${CC.SEC} unread notifications... "
                             )
                             .withMessage(
-                                "${CC.D_GRAY}(Click to view)"
+                                "${CC.GOLD}(Click to view)"
                             )
-                            .andHoverOf("${CC.D_GRAY}View unread notifications...")
+                            .andHoverOf("${CC.GREEN}View unread notifications...")
                             .andCommandOf(
                                 ClickEvent.Action.RUN_COMMAND,
                                 "/notifications"

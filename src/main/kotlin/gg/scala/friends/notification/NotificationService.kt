@@ -31,9 +31,9 @@ object NotificationService
             .loadAll(DataStoreStorageType.REDIS)
             .thenApply { mappings ->
                 mappings.values
-//                    .filter {
-//                        player.notify(it.notificationCategory)
-//                    }
+                    .filter {
+                        player.notify(it.notificationCategory)
+                    }
                     .filter { it.status == NotificationStatus.Published }
                     .filter {
                         !player.notificationsRead.contains(it.identifier) &&

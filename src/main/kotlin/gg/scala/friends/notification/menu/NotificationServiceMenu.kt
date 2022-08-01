@@ -8,6 +8,7 @@ import gg.scala.store.controller.DataStoreObjectControllerCache
 import gg.scala.store.storage.type.DataStoreStorageType
 import net.evilblock.cubed.menu.Button
 import net.evilblock.cubed.menu.buttons.AddButton
+import net.evilblock.cubed.menu.menus.ConfirmMenu
 import net.evilblock.cubed.menu.pagination.PaginatedMenu
 import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.ItemBuilder
@@ -107,8 +108,26 @@ class NotificationServiceMenu : PaginatedMenu()
                             .toTypedArray()
                     )
                 }
-                .addToLore("", "${CC.GREEN}Click to edit!")
-                .toButton { _, _ ->
+                .addToLore("", "${CC.GREEN}Click to edit!", "${CC.RED}Right-click to delete!")
+                .toButton { _, type ->
+                    if (type!!.isRightClick)
+                    {
+                        ConfirmMenu(
+                            title = "Are you sure?",
+                            confirm = true
+                        ) {
+                            DataStoreObjectControllerCache
+                                .findNotNull<Notification>()
+                                .delete(notification.key, DataStoreStorageType.REDIS)
+                                .join()
+
+                            player.sendMessage("${CC.GREEN}Deleted this notification!")
+
+                            NotificationServiceMenu().openMenu(player)
+                        }.openMenu(player)
+                        return@toButton
+                    }
+
                     NotificationEditMenu(notification.value).openMenu(player)
                 }
         }

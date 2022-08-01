@@ -16,10 +16,12 @@ data class Notification(
     var title: String,
     val author: UUID,
     val content: MutableList<String>,
-    val status: NotificationStatus,
+    var status: NotificationStatus,
     val creationTimestamp: Date,
     var distributionTimestamp: Date = Date(),
     var expiryDate: Date? = null,
+    var notificationCategory: NotificationCategory =
+        NotificationCategory.General
 ) : Savable, IDataStoreObject
 {
     override val identifier: UUID

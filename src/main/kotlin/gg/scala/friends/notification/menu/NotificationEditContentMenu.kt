@@ -26,9 +26,12 @@ class NotificationEditContentMenu(
     {
         super.onClose(player, manualClose)
 
-        Tasks.delayed(1L)
+        if (manualClose)
         {
-            NotificationEditMenu(notification).openMenu(player)
+            Tasks.delayed(1L)
+            {
+                NotificationEditMenu(notification).openMenu(player)
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package gg.scala.friends.player
 
 import gg.scala.common.Savable
+import gg.scala.friends.notification.NotificationCategory
 import gg.scala.store.controller.DataStoreObjectControllerCache
 import gg.scala.store.controller.annotations.Timestamp
 import gg.scala.store.storage.storable.IDataStoreObject
@@ -24,6 +25,12 @@ class CommunityPlayer(
         get() = uniqueId
 
     val notificationsRead = mutableSetOf<UUID>()
+    val categories = mutableMapOf<NotificationCategory, Boolean>()
+
+    fun notify(category: NotificationCategory): Boolean
+    {
+        return this.categories[category] ?: true
+    }
 
     override fun save(): CompletableFuture<Void>
     {

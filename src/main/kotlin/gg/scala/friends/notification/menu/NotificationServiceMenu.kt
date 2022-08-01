@@ -111,7 +111,7 @@ class NotificationServiceMenu : PaginatedMenu()
                 }
                 .addToLore("", "${CC.GREEN}Click to edit!")
                 .toButton { _, _ ->
-
+                    NotificationEditMenu(notification.value).openMenu(player)
                 }
         }
 

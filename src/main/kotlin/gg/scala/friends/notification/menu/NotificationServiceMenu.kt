@@ -14,7 +14,6 @@ import net.evilblock.cubed.util.bukkit.ItemBuilder
 import net.evilblock.cubed.util.time.TimeUtil
 import org.bukkit.Material
 import org.bukkit.entity.Player
-import java.time.Instant
 import java.util.*
 
 /**
@@ -30,13 +29,15 @@ class NotificationServiceMenu : PaginatedMenu()
     }
 
     override fun size(buttons: Map<Int, Button>) = 36
+    override fun getAllPagesButtonSlots() = (10..16) + (19..25)
 
     override fun getGlobalButtons(player: Player): Map<Int, Button>
     {
         return mutableMapOf(
             4 to ItemBuilder
                 .copyOf(
-                    object : AddButton(){}
+                    object : AddButton()
+                    {}
                         .getButtonItem(player)
                 )
                 .name("${CC.YELLOW}Create notification")
@@ -79,13 +80,22 @@ class NotificationServiceMenu : PaginatedMenu()
             .loadAll(DataStoreStorageType.REDIS)
             .join()
 
+
+
         for (notification in notifications)
         {
+            val colored = QuickAccess
+                .computeColoredName(
+                    notification.value.author,
+                    CubedCacheUtil.fetchName(notification.value.author)!!
+                )
+                .join()
+
             buttons[buttons.size] = ItemBuilder
                 .of(Material.PAPER)
                 .name("${CC.YELLOW}${notification.value.title}")
                 .addToLore(
-                    "${CC.GRAY}Author: ${QuickAccess.computeColoredName(notification.value.author, CubedCacheUtil.fetchName(notification.value.author)!!)}",
+                    "${CC.GRAY}Author: $colored",
                     "",
                     "${CC.GRAY}Private:",
                     "  ${CC.GRAY}Status: ${notification.value.status.chatColor}${notification.value.status.name}",

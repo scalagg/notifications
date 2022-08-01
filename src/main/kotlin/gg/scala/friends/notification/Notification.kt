@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture
  */
 data class Notification(
     private val uniqueId: UUID,
-    val title: String,
+    var title: String,
     val author: UUID,
     val content: List<String>,
     val status: NotificationStatus,

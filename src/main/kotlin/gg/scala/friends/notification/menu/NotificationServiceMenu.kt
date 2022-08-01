@@ -98,6 +98,12 @@ class NotificationServiceMenu : PaginatedMenu()
                     "",
                     "${CC.GRAY}Private:",
                     "  ${CC.GRAY}Status: ${notification.value.status.chatColor}${notification.value.status.name}",
+                    "",
+                    "  ${CC.GRAY}Distribution: ${CC.WHITE}${
+                        if (notification.value.status == NotificationStatus.Draft)
+                            "${CC.GOLD}Not yet distributed" else TimeUtil
+                            .formatIntoFullCalendarString(notification.value.distributionTimestamp)
+                    }",
                     "  ${CC.GRAY}Creation: ${CC.WHITE}${TimeUtil.formatIntoFullCalendarString(notification.value.creationTimestamp)}",
                     ""
                 )

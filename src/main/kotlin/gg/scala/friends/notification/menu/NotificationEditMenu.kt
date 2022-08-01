@@ -51,6 +51,37 @@ class NotificationEditMenu(
 
                             openMenu(player)
                         }
+                        .start(player)
+                },
+            2 to ItemBuilder
+                .of(Material.PAPER)
+                .name("${CC.YELLOW}Lines")
+                .addToLore(
+                    "${CC.GRAY}Current:",
+                )
+                .apply {
+                    addToLore(
+                        *notification.content
+                            .map { "${CC.WHITE}$it" }
+                            .toTypedArray()
+                    )
+                }
+                .addToLore(
+                    "",
+                    "${CC.GREEN}Left-Click to edit!",
+                    "${CC.RED}Right-Click to clear!",
+                )
+                .toButton { _, type ->
+                    if (type!!.isRightClick)
+                    {
+                        notification.content.clear()
+                        notification.save().join()
+
+                        player.sendMessage("${CC.GREEN}Cleared notification lines!")
+                        return@toButton
+                    }
+
+                    NotificationEditContentMenu(notification).openMenu(player)
                 }
         )
     }

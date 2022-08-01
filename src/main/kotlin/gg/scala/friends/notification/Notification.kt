@@ -4,8 +4,6 @@ import gg.scala.common.Savable
 import gg.scala.store.controller.DataStoreObjectControllerCache
 import gg.scala.store.storage.storable.IDataStoreObject
 import gg.scala.store.storage.type.DataStoreStorageType
-import java.time.Duration
-import java.time.Instant
 import java.util.*
 import java.util.concurrent.CompletableFuture
 
@@ -17,7 +15,7 @@ data class Notification(
     private val uniqueId: UUID,
     var title: String,
     val author: UUID,
-    val content: List<String>,
+    val content: MutableList<String>,
     val status: NotificationStatus,
     val creationTimestamp: Date,
     var distributionTimestamp: Date = Date(),

@@ -52,7 +52,7 @@ class NotificationServiceMenu : PaginatedMenu()
                         uniqueId = UUID.randomUUID(),
                         title = "Unnamed notification",
                         author = player.uniqueId,
-                        content = listOf(
+                        content = mutableListOf(
                             "Lorem ipsum dolor sit amet",
                             "consectetur adipiscing elit",
                             "sed do eiusmod tempor incididunt",
@@ -79,8 +79,6 @@ class NotificationServiceMenu : PaginatedMenu()
             .findNotNull<Notification>()
             .loadAll(DataStoreStorageType.REDIS)
             .join()
-
-
 
         for (notification in notifications)
         {

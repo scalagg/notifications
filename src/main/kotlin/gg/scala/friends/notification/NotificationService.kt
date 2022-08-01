@@ -39,7 +39,7 @@ object NotificationService
                     }
                     .filter {
                         it.status == NotificationStatus.Published &&
-                                it.expiryDate?.before(current) ?: true
+                                /*it.expiryDate?.before(current) ?:*/ true
                     }
                     .filter {
                         !player.notificationsRead.contains(it.identifier) &&

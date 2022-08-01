@@ -68,6 +68,11 @@ class NotificationMenu : PaginatedMenu()
                     }
                 }
 
+                if (this.notifications.isEmpty())
+                {
+                    player.sendMessage("${CC.GREEN}You do not have any new notifications. Check back later!")
+                }
+
                 callback.invoke(true)
             }
     }
@@ -81,7 +86,6 @@ class NotificationMenu : PaginatedMenu()
 
         if (this.notifications.isEmpty())
         {
-            player.sendMessage("${CC.GREEN}You do not have any new notifications. Check back later!")
             return buttons
         }
 

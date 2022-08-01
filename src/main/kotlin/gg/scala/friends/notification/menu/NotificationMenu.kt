@@ -34,6 +34,8 @@ class NotificationMenu : PaginatedMenu()
     private val mappings = mutableMapOf<UUID, String>()
     private val notifications = mutableListOf<Notification>()
 
+    private var initialLoad = false
+
     override fun asyncLoadResources(
         player: Player, callback: (Boolean) -> Unit
     )
@@ -68,13 +70,45 @@ class NotificationMenu : PaginatedMenu()
                     }
                 }
 
-                if (this.notifications.isEmpty())
+                if (!this.initialLoad)
                 {
-                    player.sendMessage("${CC.GREEN}You do not have any new notifications. Check back later!")
+                    this.initialLoad = true
+
+                    if (this.notifications.isEmpty())
+                    {
+                        player.sendMessage("${CC.GREEN}You do not have any new notifications. Check back later!")
+                    }
                 }
 
                 callback.invoke(true)
             }
+    }
+
+    override fun getGlobalButtons(player: Player): Map<Int, Button>
+    {
+        return mutableMapOf(
+            3 to ItemBuilder.of(Material.MAP)
+                .name("${CC.B_GREEN}All notifications")
+                .addToLore(
+                    "${CC.GRAY}All previously viewed",
+                    "${CC.GRAY}notifications.",
+                    "",
+                    "${CC.GREEN}Click to view!"
+                )
+                .toButton { _, _ ->
+
+                },
+            5 to ItemBuilder.of(Material.MAGMA_CREAM)
+                .name("${CC.B_GREEN}Settings")
+                .addToLore(
+                    "${CC.GRAY}Edit your notification settings.",
+                    "",
+                    "${CC.GREEN}Click to edit!"
+                )
+                .toButton { _, _ ->
+                    NotificationSettingsMenu.scheme.createAndOpen(player)
+                }
+        )
     }
 
     override fun getAllPagesButtons(player: Player): Map<Int, Button>

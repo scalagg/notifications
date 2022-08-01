@@ -48,20 +48,25 @@ class CommunitySpigotPlugin : ExtendedScalaPlugin()
                         return@exceptionally null
                     }
                     .thenAccept {
-                        val fancy = FancyMessage()
-                            .withMessage(
-                                "${CC.B_PRI}Server ${CC.GRAY}${Constants.DOUBLE_ARROW_RIGHT} ${CC.SEC}You have ${CC.B_PRI}${it.size}${CC.SEC} unread notifications... "
-                            )
-                            .withMessage(
-                                "${CC.GOLD}(Click to view)"
-                            )
-                            .andHoverOf("${CC.GREEN}View unread notifications...")
-                            .andCommandOf(
-                                ClickEvent.Action.RUN_COMMAND,
-                                "/notifications"
-                            )
+                        if (it.isNotEmpty())
+                        {
+                            val fancy = FancyMessage()
+                                .withMessage(
+                                    "${CC.B_PRI}Server ${CC.GRAY}${Constants.DOUBLE_ARROW_RIGHT} ${CC.SEC}You have ${CC.PRI}${it.size}${CC.SEC} unread notification${
+                                        if (it.size == 1) "" else "s"
+                                    }! "
+                                )
+                                .withMessage(
+                                    "${CC.D_AQUA}(Click to read)"
+                                )
+                                .andHoverOf("${CC.GREEN}View unread notifications...")
+                                .andCommandOf(
+                                    ClickEvent.Action.RUN_COMMAND,
+                                    "/notifications"
+                                )
 
-                        fancy.sendToPlayer(event.player)
+                            fancy.sendToPlayer(event.player)
+                        }
                     }
             }
     }

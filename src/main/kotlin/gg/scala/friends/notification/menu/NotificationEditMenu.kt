@@ -107,7 +107,7 @@ class NotificationEditMenu(
                     "${CC.GREEN}Click to view!"
                 )
                 .toButton { _, _ ->
-                    player.sendMessage("${CC.RED}This action is currently unavailable.")
+                    NotificationEditMetricsMenu(notification).openMenu(player)
                 },
             22 + 9 to ItemBuilder
                 .copyOf(

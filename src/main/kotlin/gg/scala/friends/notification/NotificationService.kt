@@ -5,6 +5,7 @@ import gg.scala.flavor.service.Service
 import gg.scala.friends.player.CommunityPlayer
 import gg.scala.store.controller.DataStoreObjectControllerCache
 import gg.scala.store.storage.type.DataStoreStorageType
+import java.util.*
 import java.util.concurrent.CompletableFuture
 
 /**
@@ -30,11 +31,16 @@ object NotificationService
             .findNotNull<Notification>()
             .loadAll(DataStoreStorageType.REDIS)
             .thenApply { mappings ->
+                val current = Date()
+
                 mappings.values
                     .filter {
                         player.notify(it.notificationCategory)
                     }
-                    .filter { it.status == NotificationStatus.Published }
+                    .filter {
+                        it.status == NotificationStatus.Published &&
+                                it.expiryDate?.before(current) ?: true
+                    }
                     .filter {
                         !player.notificationsRead.contains(it.identifier) &&
                                 (!filterViewed || !player.notificationsViewed.contains(it.identifier))

@@ -1,32 +1,17 @@
 package gg.scala.friends.notification.menu
 
-import com.cryptomorin.xseries.XMaterial
-import gg.scala.cookie.settings.builder.MultiOptionPlayerSettingsBuilder
 import gg.scala.friends.handler.CommunityPlayerHandler
 import gg.scala.friends.notification.Notification
-import gg.scala.friends.notification.NotificationCategory
 import gg.scala.friends.notification.NotificationService
-import gg.scala.friends.notification.NotificationStatus
-import gg.scala.lemon.player.metadata.Metadata
 import gg.scala.lemon.util.CubedCacheUtil
 import gg.scala.lemon.util.QuickAccess
-import gg.scala.store.controller.DataStoreObjectControllerCache
-import gg.scala.store.storage.type.DataStoreStorageType
 import net.evilblock.cubed.menu.Button
-import net.evilblock.cubed.menu.Menu
-import net.evilblock.cubed.menu.buttons.TexturedHeadButton
-import net.evilblock.cubed.menu.menus.ConfirmMenu
 import net.evilblock.cubed.menu.pagination.PaginatedMenu
 import net.evilblock.cubed.util.CC
-import net.evilblock.cubed.util.bukkit.Constants
 import net.evilblock.cubed.util.bukkit.ItemBuilder
-import net.evilblock.cubed.util.bukkit.Tasks
-import net.evilblock.cubed.util.bukkit.prompt.DurationPrompt
-import net.evilblock.cubed.util.bukkit.prompt.InputPrompt
 import net.evilblock.cubed.util.time.TimeUtil
 import org.bukkit.Material
 import org.bukkit.entity.Player
-import java.time.Instant
 import java.util.*
 
 /**
@@ -93,6 +78,12 @@ class NotificationMenu : PaginatedMenu()
 
         val community = CommunityPlayerHandler
             .find(player) ?: return buttons
+
+        if (this.notifications.isEmpty())
+        {
+            player.sendMessage("${CC.GREEN}You do not have any new notifications. Check back later!")
+            return buttons
+        }
 
         for (notification in this.notifications)
         {

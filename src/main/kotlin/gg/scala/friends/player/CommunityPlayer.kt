@@ -25,6 +25,8 @@ class CommunityPlayer(
         get() = uniqueId
 
     val notificationsRead = mutableSetOf<UUID>()
+    val notificationsViewed = mutableSetOf<UUID>()
+
     val categories = mutableMapOf<NotificationCategory, Boolean>()
 
     fun notify(category: NotificationCategory): Boolean

@@ -97,7 +97,7 @@ class NotificationEditMenu(
                 },
             22 to ItemBuilder
                 .copyOf(
-                    object : TexturedHeadButton(Constants.BELL_ICON){}.getButtonItem(player)
+                    object : TexturedHeadButton(Constants.CAMERA_ICON){}.getButtonItem(player)
                 )
                 .name("${CC.B_GREEN}Metrics")
                 .addToLore(
@@ -111,7 +111,7 @@ class NotificationEditMenu(
                 },
             22 + 9 to ItemBuilder
                 .copyOf(
-                    object : TexturedHeadButton(Constants.ANCHOR_SYMBOL){}.getButtonItem(player)
+                    object : TexturedHeadButton(Constants.RUBIKS_CUBE_ICON){}.getButtonItem(player)
                 )
                 .name("${CC.B_GREEN}Unlist & Draft")
                 .addToLore(
@@ -130,7 +130,7 @@ class NotificationEditMenu(
                     notification.status = NotificationStatus.Draft
                     notification.save().join()
 
-                    player.sendMessage("${CC.GREEN}Published notification globally.")
+                    player.sendMessage("${CC.GREEN}Drafted this notification.")
                 },
             25 to ItemBuilder
                 .of(Material.ARROW)

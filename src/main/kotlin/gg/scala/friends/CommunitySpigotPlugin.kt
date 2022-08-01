@@ -1,15 +1,16 @@
 package gg.scala.friends
 
-import gg.scala.aware.AwareBuilder
-import gg.scala.aware.codec.codecs.interpretation.AwareMessageCodec
-import gg.scala.aware.message.AwareMessage
 import gg.scala.commons.ExtendedScalaPlugin
-import gg.scala.commons.annotations.container.ContainerDisable
 import gg.scala.commons.annotations.container.ContainerEnable
-import gg.scala.friends.notification.Notification
-import gg.scala.store.controller.DataStoreObjectControllerCache
+import gg.scala.friends.handler.CommunityPlayerHandler
+import gg.scala.friends.notification.NotificationService
+import me.lucko.helper.Events
 import me.lucko.helper.plugin.ap.Plugin
 import me.lucko.helper.plugin.ap.PluginDependency
+import net.evilblock.cubed.util.CC
+import net.evilblock.cubed.util.bukkit.FancyMessage
+import net.md_5.bungee.api.chat.ClickEvent
+import org.bukkit.event.player.PlayerJoinEvent
 
 /**
  * @author GrowlyX
@@ -28,26 +29,38 @@ import me.lucko.helper.plugin.ap.PluginDependency
 )
 class CommunitySpigotPlugin : ExtendedScalaPlugin()
 {
-    private val aware by lazy {
-        AwareBuilder
-            .of<AwareMessage>("community")
-            .codec(AwareMessageCodec)
-            .logger(logger)
-            .build()
-    }
-
     @ContainerEnable
     fun containerEnable()
     {
-        DataStoreObjectControllerCache
-            .create<Notification>()
+        Events.subscribe(PlayerJoinEvent::class.java)
+            .handler { event ->
+                val community = CommunityPlayerHandler
+                    .find(event.player)!!
 
-        this.aware.connect()
-    }
+                NotificationService
+                    .findUnreadNotifications(
+                        community, filterViewed = true
+                    )
+                    .exceptionally {
+                        it.printStackTrace()
+                        return@exceptionally null
+                    }
+                    .thenAccept {
+                        val fancy = FancyMessage()
+                            .withMessage(
+                                "${CC.D_GRAY}You have ${CC.BD_GRAY}${it.size}${CC.D_GRAY} unread notifications... "
+                            )
+                            .withMessage(
+                                "${CC.D_GRAY}(Click to view)"
+                            )
+                            .andHoverOf("${CC.D_GRAY}View unread notifications...")
+                            .andCommandOf(
+                                ClickEvent.Action.RUN_COMMAND,
+                                "/notifications"
+                            )
 
-    @ContainerDisable
-    fun containerDisable()
-    {
-        this.aware.shutdown()
+                        fancy.sendToPlayer(event.player)
+                    }
+            }
     }
 }

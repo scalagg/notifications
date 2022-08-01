@@ -6,7 +6,7 @@ import gg.scala.aware.message.AwareMessage
 import gg.scala.commons.ExtendedScalaPlugin
 import gg.scala.commons.annotations.container.ContainerDisable
 import gg.scala.commons.annotations.container.ContainerEnable
-import gg.scala.friends.model.notification.Notification
+import gg.scala.friends.notification.Notification
 import gg.scala.store.controller.DataStoreObjectControllerCache
 import me.lucko.helper.plugin.ap.Plugin
 import me.lucko.helper.plugin.ap.PluginDependency

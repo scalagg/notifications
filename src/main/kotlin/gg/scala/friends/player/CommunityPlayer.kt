@@ -1,4 +1,4 @@
-package gg.scala.friends.model
+package gg.scala.friends.player
 
 import gg.scala.common.Savable
 import gg.scala.store.controller.DataStoreObjectControllerCache
@@ -23,7 +23,7 @@ class CommunityPlayer(
     override val identifier: UUID
         get() = uniqueId
 
-    val readNotifications = mutableSetOf<UUID>()
+    val notificationsRead = mutableSetOf<UUID>()
 
     override fun save(): CompletableFuture<Void>
     {

@@ -3,7 +3,7 @@ package gg.scala.friends.handler
 import gg.scala.commons.persist.ProfileOrchestrator
 import gg.scala.flavor.service.Configure
 import gg.scala.flavor.service.Service
-import gg.scala.friends.model.CommunityPlayer
+import gg.scala.friends.player.CommunityPlayer
 import java.util.*
 
 /**

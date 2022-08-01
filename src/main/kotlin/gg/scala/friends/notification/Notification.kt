@@ -1,9 +1,10 @@
-package gg.scala.friends.model.notification
+package gg.scala.friends.notification
 
 import gg.scala.common.Savable
 import gg.scala.store.controller.DataStoreObjectControllerCache
 import gg.scala.store.storage.storable.IDataStoreObject
 import gg.scala.store.storage.type.DataStoreStorageType
+import java.time.Duration
 import java.time.Instant
 import java.util.*
 import java.util.concurrent.CompletableFuture
@@ -18,8 +19,9 @@ data class Notification(
     val author: UUID,
     val content: List<String>,
     val status: NotificationStatus,
-    val creationTimestamp: Instant,
-    var distributionTimestamp: Instant = Instant.now()
+    val creationTimestamp: Date,
+    var distributionTimestamp: Date = Date(),
+    var expiryDate: Date? = null,
 ) : Savable, IDataStoreObject
 {
     override val identifier: UUID
@@ -29,6 +31,6 @@ data class Notification(
     {
         return DataStoreObjectControllerCache
             .findNotNull<Notification>()
-            .save(this, DataStoreStorageType.MONGO)
+            .save(this, DataStoreStorageType.REDIS)
     }
 }

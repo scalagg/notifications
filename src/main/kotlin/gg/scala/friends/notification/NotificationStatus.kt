@@ -1,4 +1,4 @@
-package gg.scala.friends.model.notification
+package gg.scala.friends.notification
 
 import org.bukkit.ChatColor
 

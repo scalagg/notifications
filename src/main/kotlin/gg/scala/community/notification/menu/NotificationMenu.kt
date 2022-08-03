@@ -1,5 +1,6 @@
 package gg.scala.community.notification.menu
 
+import com.cryptomorin.xseries.XMaterial
 import gg.scala.community.handler.CommunityPlayerHandler
 import gg.scala.community.notification.Notification
 import gg.scala.community.notification.NotificationService
@@ -8,6 +9,7 @@ import gg.scala.lemon.util.QuickAccess
 import net.evilblock.cubed.menu.Button
 import net.evilblock.cubed.menu.pagination.PaginatedMenu
 import net.evilblock.cubed.util.CC
+import net.evilblock.cubed.util.bukkit.Constants
 import net.evilblock.cubed.util.bukkit.ItemBuilder
 import net.evilblock.cubed.util.time.TimeUtil
 import org.bukkit.Material
@@ -36,6 +38,13 @@ class NotificationMenu : PaginatedMenu()
 
     private var initialLoad = false
 
+    enum class UIState
+    {
+        All, Unread
+    }
+
+    private var uiState = UIState.Unread
+
     override fun asyncLoadResources(
         player: Player, callback: (Boolean) -> Unit
     )
@@ -45,7 +54,8 @@ class NotificationMenu : PaginatedMenu()
 
         NotificationService
             .findUnreadNotifications(
-                community, filterViewed = false
+                community, filterViewed = false,
+                filterRead = this.uiState == UIState.Unread
             )
             .exceptionally {
                 it.printStackTrace()
@@ -87,16 +97,44 @@ class NotificationMenu : PaginatedMenu()
     override fun getGlobalButtons(player: Player): Map<Int, Button>
     {
         return mutableMapOf(
-            3 to ItemBuilder.of(Material.MAP)
-                .name("${CC.B_GREEN}All notifications")
+            3 to ItemBuilder
+                .of(
+                    when (this.uiState)
+                    {
+                        UIState.Unread -> XMaterial.CHEST
+                        UIState.All -> XMaterial.SADDLE
+                    }
+                )
+                .name(
+                    when (this.uiState)
+                    {
+                        UIState.All -> "${CC.B_GREEN}Unread notifications"
+                        UIState.Unread -> "${CC.B_GREEN}All notifications"
+                    }
+                )
+                .setLore(
+                    when (this.uiState)
+                    {
+                        UIState.Unread -> listOf(
+                            "${CC.GRAY}All notifications you",
+                            "${CC.GRAY}have already read.",
+                        )
+                        UIState.All -> listOf(
+                            "${CC.GRAY}Notifications you have",
+                            "${CC.GRAY}not yet read.",
+                        )
+                    }
+                )
                 .addToLore(
-                    "${CC.GRAY}All previously viewed",
-                    "${CC.GRAY}notifications.",
                     "",
                     "${CC.GREEN}Click to view!"
                 )
                 .toButton { _, _ ->
-
+                    this.uiState = when (this.uiState)
+                    {
+                        UIState.All -> UIState.Unread
+                        UIState.Unread -> UIState.All
+                    }
                 },
             5 to ItemBuilder.of(Material.MAGMA_CREAM)
                 .name("${CC.B_GREEN}Settings")
@@ -163,5 +201,5 @@ class NotificationMenu : PaginatedMenu()
         return buttons
     }
 
-    override fun getPrePaginatedTitle(player: Player) = "Notifications"
+    override fun getPrePaginatedTitle(player: Player) = "Notifications ${Constants.DOUBLE_ARROW_RIGHT} Viewing ${uiState.name}"
 }

@@ -8,8 +8,10 @@ import gg.scala.commons.acf.annotation.HelpCommand
 import gg.scala.commons.acf.annotation.Subcommand
 import gg.scala.commons.annotations.commands.AutoRegister
 import gg.scala.commons.command.ScalaCommand
+import gg.scala.community.notification.NotificationService
 import gg.scala.community.notification.menu.NotificationServiceMenu
 import org.bukkit.entity.Player
+import java.util.concurrent.CompletableFuture
 
 /**
  * @author GrowlyX
@@ -32,5 +34,11 @@ object NotificationServiceCommand : ScalaCommand()
     fun onControlPanel(player: Player)
     {
         NotificationServiceMenu().openMenu(player)
+    }
+
+    @Subcommand("test-inform")
+    fun onInform(player: Player): CompletableFuture<Void>
+    {
+        return NotificationService.informOfUnread(player)
     }
 }

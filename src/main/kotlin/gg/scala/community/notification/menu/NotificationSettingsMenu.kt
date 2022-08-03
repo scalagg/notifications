@@ -22,9 +22,8 @@ object NotificationSettingsMenu
         .configuration {
             this.updateAfterClick = true
         }
-        .manuallyClosed {
-            // TODO: supply player
-            NotificationMenu()
+        .manuallyClosed { player ->
+            NotificationMenu().openMenu(player)
         }
         .pattern(
             "000000000",

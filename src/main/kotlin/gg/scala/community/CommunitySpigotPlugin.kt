@@ -35,39 +35,7 @@ class CommunitySpigotPlugin : ExtendedScalaPlugin()
     {
         Events.subscribe(PlayerJoinEvent::class.java)
             .handler { event ->
-                val community = CommunityPlayerHandler
-                    .find(event.player)
-                    ?: return@handler
-
-                NotificationService
-                    .findUnreadNotifications(
-                        community, filterViewed = true
-                    )
-                    .exceptionally {
-                        it.printStackTrace()
-                        return@exceptionally null
-                    }
-                    .thenAccept {
-                        if (it.isNotEmpty())
-                        {
-                            val fancy = FancyMessage()
-                                .withMessage(
-                                    "${CC.B_PRI}Server ${CC.GRAY}${Constants.DOUBLE_ARROW_RIGHT} ${CC.SEC}You have ${CC.PRI}${it.size}${CC.SEC} unread notification${
-                                        if (it.size == 1) "" else "s"
-                                    }! "
-                                )
-                                .withMessage(
-                                    "${CC.D_AQUA}(Click to read)"
-                                )
-                                .andHoverOf("${CC.GREEN}View unread notifications...")
-                                .andCommandOf(
-                                    ClickEvent.Action.RUN_COMMAND,
-                                    "/notifications"
-                                )
-
-                            fancy.sendToPlayer(event.player)
-                        }
-                    }
+                NotificationService.informOfUnread(event.player)
             }
     }
 }

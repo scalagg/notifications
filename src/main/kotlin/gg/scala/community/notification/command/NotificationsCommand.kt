@@ -1,9 +1,9 @@
-package gg.scala.friends.notification.command
+package gg.scala.community.notification.command
 
 import gg.scala.commons.acf.annotation.CommandAlias
 import gg.scala.commons.annotations.commands.AutoRegister
 import gg.scala.commons.command.ScalaCommand
-import gg.scala.friends.notification.menu.NotificationMenu
+import gg.scala.community.notification.menu.NotificationMenu
 import org.bukkit.entity.Player
 
 /**

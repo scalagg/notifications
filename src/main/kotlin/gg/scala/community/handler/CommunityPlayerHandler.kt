@@ -1,9 +1,9 @@
-package gg.scala.friends.handler
+package gg.scala.community.handler
 
 import gg.scala.commons.persist.ProfileOrchestrator
 import gg.scala.flavor.service.Configure
 import gg.scala.flavor.service.Service
-import gg.scala.friends.player.CommunityPlayer
+import gg.scala.community.player.CommunityPlayer
 import java.util.*
 
 /**

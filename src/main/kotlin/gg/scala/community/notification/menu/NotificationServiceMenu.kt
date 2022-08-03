@@ -1,7 +1,7 @@
-package gg.scala.friends.notification.menu
+package gg.scala.community.notification.menu
 
-import gg.scala.friends.notification.Notification
-import gg.scala.friends.notification.NotificationStatus
+import gg.scala.community.notification.Notification
+import gg.scala.community.notification.NotificationStatus
 import gg.scala.lemon.util.CubedCacheUtil
 import gg.scala.lemon.util.QuickAccess
 import gg.scala.store.controller.DataStoreObjectControllerCache

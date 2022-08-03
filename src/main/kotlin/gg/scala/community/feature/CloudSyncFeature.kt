@@ -1,4 +1,4 @@
-package gg.scala.friends.feature
+package gg.scala.community.feature
 
 import gg.scala.cloudsync.shared.discovery.CloudSyncDiscoveryService
 import gg.scala.commons.annotations.plugin.SoftDependency

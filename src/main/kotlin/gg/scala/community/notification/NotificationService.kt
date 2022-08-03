@@ -1,8 +1,8 @@
-package gg.scala.friends.notification
+package gg.scala.community.notification
 
 import gg.scala.flavor.service.Configure
 import gg.scala.flavor.service.Service
-import gg.scala.friends.player.CommunityPlayer
+import gg.scala.community.player.CommunityPlayer
 import gg.scala.store.controller.DataStoreObjectControllerCache
 import gg.scala.store.storage.type.DataStoreStorageType
 import java.util.*
@@ -39,7 +39,7 @@ object NotificationService
                     }
                     .filter {
                         it.status == NotificationStatus.Published &&
-                                it.expiryDate?.before(current) ?: true
+                                /*it.expiryDate?.before(current) ?:*/ true
                     }
                     .filter {
                         !player.notificationsRead.contains(it.identifier) &&

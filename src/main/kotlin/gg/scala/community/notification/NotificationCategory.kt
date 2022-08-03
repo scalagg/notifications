@@ -1,4 +1,4 @@
-package gg.scala.friends.notification
+package gg.scala.community.notification
 
 /**
  * @author GrowlyX

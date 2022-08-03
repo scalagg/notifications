@@ -1,6 +1,6 @@
-package gg.scala.friends.notification.menu
+package gg.scala.community.notification.menu
 
-import gg.scala.friends.notification.Notification
+import gg.scala.community.notification.Notification
 import net.evilblock.cubed.menu.menus.TextEditorMenu
 import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.Tasks

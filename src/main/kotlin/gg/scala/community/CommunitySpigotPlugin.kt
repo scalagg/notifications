@@ -1,9 +1,9 @@
-package gg.scala.friends
+package gg.scala.community
 
 import gg.scala.commons.ExtendedScalaPlugin
 import gg.scala.commons.annotations.container.ContainerEnable
-import gg.scala.friends.handler.CommunityPlayerHandler
-import gg.scala.friends.notification.NotificationService
+import gg.scala.community.handler.CommunityPlayerHandler
+import gg.scala.community.notification.NotificationService
 import me.lucko.helper.Events
 import me.lucko.helper.plugin.ap.Plugin
 import me.lucko.helper.plugin.ap.PluginDependency

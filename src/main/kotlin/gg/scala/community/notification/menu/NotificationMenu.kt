@@ -1,8 +1,8 @@
-package gg.scala.friends.notification.menu
+package gg.scala.community.notification.menu
 
-import gg.scala.friends.handler.CommunityPlayerHandler
-import gg.scala.friends.notification.Notification
-import gg.scala.friends.notification.NotificationService
+import gg.scala.community.handler.CommunityPlayerHandler
+import gg.scala.community.notification.Notification
+import gg.scala.community.notification.NotificationService
 import gg.scala.lemon.util.CubedCacheUtil
 import gg.scala.lemon.util.QuickAccess
 import net.evilblock.cubed.menu.Button

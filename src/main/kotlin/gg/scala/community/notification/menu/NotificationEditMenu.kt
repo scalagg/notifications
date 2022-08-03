@@ -1,10 +1,10 @@
-package gg.scala.friends.notification.menu
+package gg.scala.community.notification.menu
 
 import com.cryptomorin.xseries.XMaterial
 import gg.scala.cookie.settings.builder.MultiOptionPlayerSettingsBuilder
-import gg.scala.friends.notification.Notification
-import gg.scala.friends.notification.NotificationCategory
-import gg.scala.friends.notification.NotificationStatus
+import gg.scala.community.notification.Notification
+import gg.scala.community.notification.NotificationCategory
+import gg.scala.community.notification.NotificationStatus
 import gg.scala.lemon.player.metadata.Metadata
 import net.evilblock.cubed.menu.Button
 import net.evilblock.cubed.menu.Menu

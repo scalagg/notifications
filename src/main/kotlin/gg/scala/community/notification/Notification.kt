@@ -1,4 +1,4 @@
-package gg.scala.friends.notification
+package gg.scala.community.notification
 
 import gg.scala.common.Savable
 import gg.scala.store.controller.DataStoreObjectControllerCache

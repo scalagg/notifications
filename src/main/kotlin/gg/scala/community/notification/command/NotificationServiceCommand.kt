@@ -1,4 +1,4 @@
-package gg.scala.friends.notification.command
+package gg.scala.community.notification.command
 
 import gg.scala.commons.acf.CommandHelp
 import gg.scala.commons.acf.annotation.CommandAlias
@@ -8,7 +8,7 @@ import gg.scala.commons.acf.annotation.HelpCommand
 import gg.scala.commons.acf.annotation.Subcommand
 import gg.scala.commons.annotations.commands.AutoRegister
 import gg.scala.commons.command.ScalaCommand
-import gg.scala.friends.notification.menu.NotificationServiceMenu
+import gg.scala.community.notification.menu.NotificationServiceMenu
 import org.bukkit.entity.Player
 
 /**

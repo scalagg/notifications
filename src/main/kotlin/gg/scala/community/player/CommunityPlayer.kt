@@ -1,7 +1,7 @@
-package gg.scala.friends.player
+package gg.scala.community.player
 
 import gg.scala.common.Savable
-import gg.scala.friends.notification.NotificationCategory
+import gg.scala.community.notification.NotificationCategory
 import gg.scala.store.controller.DataStoreObjectControllerCache
 import gg.scala.store.controller.annotations.Timestamp
 import gg.scala.store.storage.storable.IDataStoreObject

@@ -1,7 +1,7 @@
-package gg.scala.friends.notification.menu
+package gg.scala.community.notification.menu
 
-import gg.scala.friends.notification.Notification
-import gg.scala.friends.player.CommunityPlayer
+import gg.scala.community.notification.Notification
+import gg.scala.community.player.CommunityPlayer
 import gg.scala.store.controller.DataStoreObjectControllerCache
 import gg.scala.store.storage.type.DataStoreStorageType
 import net.evilblock.cubed.menu.Button

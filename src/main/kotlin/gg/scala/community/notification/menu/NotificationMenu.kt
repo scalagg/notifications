@@ -36,8 +36,6 @@ class NotificationMenu : PaginatedMenu()
     private val mappings = mutableMapOf<UUID, String>()
     private val notifications = mutableListOf<Notification>()
 
-    private var initialLoad = false
-
     enum class UIState
     {
         All, Unread
@@ -77,16 +75,6 @@ class NotificationMenu : PaginatedMenu()
                     }.onFailure { throwable ->
                         throwable.printStackTrace()
                         callback.invoke(false)
-                    }
-                }
-
-                if (!this.initialLoad)
-                {
-                    this.initialLoad = true
-
-                    if (this.notifications.isEmpty())
-                    {
-                        player.sendMessage("${CC.GREEN}You do not have any new notifications. Check back later!")
                     }
                 }
 
@@ -130,11 +118,13 @@ class NotificationMenu : PaginatedMenu()
                     "${CC.GREEN}Click to view!"
                 )
                 .toButton { _, _ ->
-                    this.uiState = when (this.uiState)
+                    if (this.uiState == UIState.Unread)
                     {
-                        UIState.All -> UIState.Unread
-                        UIState.Unread -> UIState.All
+                        this.uiState = UIState.All
+                        return@toButton
                     }
+
+                    this.uiState = UIState.Unread
                 },
             5 to ItemBuilder.of(Material.MAGMA_CREAM)
                 .name("${CC.B_GREEN}Settings")
@@ -161,6 +151,8 @@ class NotificationMenu : PaginatedMenu()
             return buttons
         }
 
+        var shouldSave = false
+
         for (notification in this.notifications)
         {
             val colored = this.mappings[notification.author]!!
@@ -168,6 +160,7 @@ class NotificationMenu : PaginatedMenu()
             if (!community.notificationsViewed.contains(notification.identifier))
             {
                 community.notificationsViewed.add(notification.identifier)
+                shouldSave = true
             }
 
             buttons[buttons.size] = ItemBuilder
@@ -186,17 +179,27 @@ class NotificationMenu : PaginatedMenu()
                             .map { "${CC.GRAY}$it" }
                             .toTypedArray()
                     )
-                }
-                .addToLore("", "${CC.GREEN}Click to mark as read!")
-                .toButton { _, _ ->
-                    community.notificationsRead
-                        .add(notification.identifier)
 
-                    community.save()
+                    if (uiState == UIState.Unread)
+                    {
+                        addToLore("", "${CC.GREEN}Click to mark as read!")
+                    }
+                }
+                .toButton { _, _ ->
+                    if (uiState == UIState.Unread)
+                    {
+                        community.notificationsRead
+                            .add(notification.identifier)
+
+                        community.save()
+                    }
                 }
         }
 
-        community.save()
+        if (shouldSave)
+        {
+            community.save()
+        }
 
         return buttons
     }

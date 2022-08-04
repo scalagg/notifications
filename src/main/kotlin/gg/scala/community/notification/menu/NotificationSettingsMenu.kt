@@ -22,7 +22,7 @@ object NotificationSettingsMenu
         .configuration {
             this.updateAfterClick = true
         }
-        .manuallyClosed { player ->
+        .manuallyClosed { _, player ->
             NotificationMenu().openMenu(player)
         }
         .pattern(

@@ -13,7 +13,7 @@ import org.bukkit.entity.Player
 @AutoRegister
 object NotificationsCommand : ScalaCommand()
 {
-    @CommandAlias("notifications|notifs|notification")
+    @CommandAlias("notifications")
     fun onNotifications(player: Player)
     {
         NotificationMenu().openMenu(player)

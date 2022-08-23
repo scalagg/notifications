@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerJoinEvent
  * @since 11/11/2021
  */
 @Plugin(
-    name = "CommunityLink",
+    name = "Notifications",
     apiVersion = "1.18",
     depends = [
         PluginDependency("scala-commons"),

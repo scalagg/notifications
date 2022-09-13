@@ -49,7 +49,7 @@ object NotificationService
                             }! "
                         )
                         .withMessage(
-                            "${CC.D_AQUA}(Click to read)"
+                            "${CC.GREEN}(Click to read)"
                         )
                         .andHoverOf("${CC.GREEN}View unread notifications...")
                         .andCommandOf(

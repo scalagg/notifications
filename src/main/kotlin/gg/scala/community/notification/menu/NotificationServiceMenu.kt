@@ -122,6 +122,9 @@ class NotificationServiceMenu : PaginatedMenu()
                             title = "Are you sure?",
                             confirm = true
                         ) {
+                            if (!it)
+                                return@ConfirmMenu
+
                             DataStoreObjectControllerCache
                                 .findNotNull<Notification>()
                                 .delete(notification.key, DataStoreStorageType.REDIS)

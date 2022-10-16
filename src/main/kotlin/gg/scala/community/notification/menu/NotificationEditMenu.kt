@@ -1,7 +1,6 @@
 package gg.scala.community.notification.menu
 
 import com.cryptomorin.xseries.XMaterial
-import gg.scala.cookie.settings.builder.MultiOptionPlayerSettingsBuilder
 import gg.scala.community.notification.Notification
 import gg.scala.community.notification.NotificationCategory
 import gg.scala.community.notification.NotificationStatus
@@ -208,7 +207,7 @@ class NotificationEditMenu(
                     "General", "Sales", "Gamemodes"
                 )
                 .providerOverrideOf { _, _ ->
-                    Metadata(notification.notificationCategory.name)
+                    notification.notificationCategory.name
                 }
                 .valueOverrideOf {
                     notification.notificationCategory =

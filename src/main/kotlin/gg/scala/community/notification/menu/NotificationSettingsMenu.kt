@@ -2,7 +2,6 @@ package gg.scala.community.notification.menu
 
 import com.cryptomorin.xseries.XMaterial
 import gg.scala.commons.scheme.impl.SinglePageSchemedMenu
-import gg.scala.cookie.settings.builder.MultiOptionPlayerSettingsBuilder
 import gg.scala.community.handler.CommunityPlayerHandler
 import gg.scala.community.notification.NotificationCategory
 import gg.scala.community.player.CommunityPlayer
@@ -47,10 +46,8 @@ object NotificationSettingsMenu
                     "Enabled", "Disabled"
                 )
                 .providerOverrideOf { _, _ ->
-                    Metadata(
-                        if (community.notify(NotificationCategory.General))
-                            "Enabled" else "Disabled"
-                    )
+                    if (community.notify(NotificationCategory.General))
+                        "Enabled" else "Disabled"
                 }
                 .valueOverrideOf {
                     community.categories[NotificationCategory.General] = when (it)
@@ -108,10 +105,8 @@ object NotificationSettingsMenu
                 "Enabled", "Disabled"
             )
             .providerOverrideOf { _, _ ->
-                Metadata(
-                    if (community.notify(type))
-                        "Enabled" else "Disabled"
-                )
+                if (community.notify(type))
+                    "Enabled" else "Disabled"
             }
             .valueOverrideOf {
                 community.categories[type] = when (it)

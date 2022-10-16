@@ -23,7 +23,6 @@ import org.bukkit.event.player.PlayerJoinEvent
     depends = [
         PluginDependency("scala-commons"),
         PluginDependency("Lemon"),
-        PluginDependency("Cookie"),
         PluginDependency("store-spigot"),
         PluginDependency("cloudsync", soft = true)
     ]

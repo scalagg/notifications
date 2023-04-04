@@ -8,9 +8,11 @@ import net.evilblock.cubed.menu.Menu
 import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.ItemBuilder
 import net.evilblock.cubed.util.bukkit.Tasks
+import net.evilblock.cubed.util.bukkit.Tasks.async
 import org.bson.Document
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import java.util.concurrent.ForkJoinPool
 
 /**
  * @author GrowlyX
@@ -31,17 +33,19 @@ class NotificationEditMetricsMenu(
             .findNotNull<CommunityPlayer>()
             .mongo()
 
-        listOf("viewed", "read")
-            .forEach {
-                val result = mongo
-                    .aggregate(
-                        notification.aggregateMetrics(it)
-                    )
-                    .first()
-                    ?: Document(it, 0)
+        async {
+            listOf("viewed", "read")
+                .forEach {
+                    val result = mongo
+                        .aggregate(
+                            notification.aggregateMetrics(it)
+                        )
+                        .first()
+                        ?: Document(it, 0)
 
-                mappings[it] = result.getInteger(it)
-            }
+                    mappings[it] = result.getInteger(it)
+                }
+        }
     }
 
     override fun getButtons(player: Player): Map<Int, Button>

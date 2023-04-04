@@ -3,12 +3,12 @@ package gg.scala.community.notification.menu
 import gg.scala.community.notification.Notification
 import gg.scala.community.player.CommunityPlayer
 import gg.scala.store.controller.DataStoreObjectControllerCache
-import gg.scala.store.storage.type.DataStoreStorageType
 import net.evilblock.cubed.menu.Button
 import net.evilblock.cubed.menu.Menu
 import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.ItemBuilder
 import net.evilblock.cubed.util.bukkit.Tasks
+import org.bson.Document
 import org.bukkit.Material
 import org.bukkit.entity.Player
 
@@ -27,21 +27,20 @@ class NotificationEditMetricsMenu(
         autoUpdate = true
         autoUpdateInterval = 10L
 
-        DataStoreObjectControllerCache
+        val mongo = DataStoreObjectControllerCache
             .findNotNull<CommunityPlayer>()
-            .loadAll(DataStoreStorageType.MONGO)
-            .thenAccept {
-                this.mappings["viewed"] = it.values
-                    .count { player ->
-                        player.notificationsViewed
-                            .contains(this.notification.identifier)
-                    }
+            .mongo()
 
-                this.mappings["read"] = it.values
-                    .count { player ->
-                        player.notificationsRead
-                            .contains(this.notification.identifier)
-                    }
+        listOf("viewed", "read")
+            .forEach {
+                val result = mongo
+                    .aggregate(
+                        notification.aggregateMetrics(it)
+                    )
+                    .first()
+                    ?: Document(it, 0)
+
+                mappings[it] = result.getInteger(it)
             }
     }
 

@@ -72,8 +72,6 @@ object NotificationService
             .findNotNull<Notification>()
             .loadAll(DataStoreStorageType.REDIS)
             .thenApply { mappings ->
-//                val current = Date()
-
                 mappings.values
                     .filter {
                         player.notify(it.notificationCategory)

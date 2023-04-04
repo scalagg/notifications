@@ -4,6 +4,7 @@ import gg.scala.common.Savable
 import gg.scala.store.controller.DataStoreObjectControllerCache
 import gg.scala.store.storage.storable.IDataStoreObject
 import gg.scala.store.storage.type.DataStoreStorageType
+import org.bson.Document
 import java.util.*
 import java.util.concurrent.CompletableFuture
 
@@ -26,6 +27,25 @@ data class Notification(
 {
     override val identifier: UUID
         get() = uniqueId
+
+    fun aggregateMetrics(matcher: String) =
+        listOf(
+            Document(
+                "\$project",
+                Document(
+                    matcher,
+                    Document(
+                        "\$in",
+                        listOf(identifier.toString(), "\$notifications${matcher.capitalize()}")
+                    )
+                )
+            ),
+            Document(
+                "\$match",
+                Document(matcher, true)
+            ),
+            Document("\$count", matcher)
+        )
 
     override fun save(): CompletableFuture<Void>
     {

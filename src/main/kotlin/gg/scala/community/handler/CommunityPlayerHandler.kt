@@ -1,9 +1,8 @@
 package gg.scala.community.handler
 
 import gg.scala.commons.persist.ProfileOrchestrator
-import gg.scala.flavor.service.Configure
-import gg.scala.flavor.service.Service
 import gg.scala.community.player.CommunityPlayer
+import gg.scala.flavor.service.Service
 import java.util.*
 
 /**
@@ -13,12 +12,6 @@ import java.util.*
 @Service
 object CommunityPlayerHandler : ProfileOrchestrator<CommunityPlayer>()
 {
-    @Configure
-    fun configure()
-    {
-        this.subscribe()
-    }
-
     override fun new(uniqueId: UUID) = CommunityPlayer(uniqueId)
     override fun type() = CommunityPlayer::class
 }

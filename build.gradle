@@ -1,13 +1,13 @@
 plugins {
     id "maven-publish"
-    id "com.jfrog.artifactory" version "4.28.2"
-    id "org.jetbrains.kotlin.jvm" version "1.7.20"
-    id "org.jetbrains.kotlin.kapt" version "1.7.10"
+    id "com.jfrog.artifactory" version "4.29.2"
     id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "org.jetbrains.kotlin.jvm" version "2.0.0"
+    id "org.jetbrains.kotlin.kapt" version "2.0.0"
 }
 
 group "gg.scala.community"
-version "1.0.0"
+version "1.0.2"
 
 repositories {
     mavenCentral()
@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:1.7.10"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:2.0.0"
 
     compileOnly "me.lucko:helper:5.6.10.2"
     kapt "me.lucko:helper:5.6.10.2"
@@ -46,7 +46,7 @@ dependencies {
     compileOnly "gg.scala.spigot:server:1.1.0"
 
     compileOnly "gg.scala.cloudsync:spigot:1.0.1"
-    compileOnly "gg.scala.commons:bukkit:2.0.6"
+    compileOnly "gg.scala.commons:bukkit:4.0.2"
 }
 
 compileKotlin {
@@ -61,7 +61,7 @@ shadowJar {
     exclude "**/*.kotlin_builtins"
     exclude "META-INF/"
 
-    archiveFileName = "community-link.jar"
+    archiveFileName = "scala-community-link.jar"
 }
 
 publishing {
